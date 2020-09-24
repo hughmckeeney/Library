@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <title>IBTWLB Library</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/common.css">
+    </head>
+    <body>
+        <div th:replace="fragments/header :: header"></div>
+
+        <div class="container mt-4">
+            <form action="/search" method="Get" >
+                    <div class="row introduction">
+                        <div class="col-lg-6 my-auto">
+                            <h3 class="body-header">Welcome<span sec:authorize="isAuthenticated()"> back</span> to the IBTWLB Library</h3>
+                            <p class="body-para">Feel free to browse the library.</p>
+                            <p class="body-para" sec:authorize="isAnonymous()">You will have to sign-up to access the full range of features provided by our online library.</p>
+                        </div>
+                        <div class="col-lg-6 my-auto">
+                            <label for="title">Search our library:</label>
+                            <input type="text" name="searchQuery" class="form-control">
+                            <button type="submit" class="btn btn-primary w-100 mt-2">Search</button>
+                            <h3 class="text-center">OR</h3>
+                            <a class="btn btn-primary btn-block mt-1" href="/browse">Browse All Artifacts</a>
+                        </div>
+                    </div>                        
+                        
+                </form>
+                </div>
+
+                <div class="container-fluid admin-section mt-4" sec:authorize="hasRole('ROLE_ADMIN')">
+                        <div class="row" >             
+                            <div class="col-lg-4 my-auto admin-block">
+                                <h3 class="body-header">Admin Area</h3>
+                                <p class="body-para">In this section you can perform various admin tasks.</p>
+                                <p class="body-para">You can search for users, add or remove artifacts or reserve artifacts for other users.</p>
+                            </div>
+                            <div class="col-lg-4 my-auto admin-block">
+                                <form action="/searchUser" method="Get" sec:authorize="hasRole('ROLE_ADMIN')">
+                                    <label for="title">Search users:</label>
+                                    <input type="text" name="searchUser" placeholder="Search by username, user id, email or location.." class="form-control">
+                                    <button type="submit" class="btn btn-primary mt-2 float-right">Search User</button>
+                                    <a class="btn btn-primary mt-2 float-left" sec:authorize="hasRole('ROLE_ADMIN')" href="/browseUsers">Browse All Users</a>
+                                    <a class="btn btn-primary  mt-2 float-left" sec:authorize="hasRole('ROLE_ADMIN')" href="/signup">Add User</a>
+                                </form>
+                            </div>  
+                            <div class="col-lg-4 my-auto admin-block">
+                                    <p class="body-para">Manage artifacts..</p>
+                                    <a class="btn btn-primary mr-2" sec:authorize="hasRole('ROLE_ADMIN')" href="/addartifact">Add Artifact</a> 
+                                    <a class="btn btn-primary mr-2" sec:authorize="hasRole('ROLE_ADMIN')" href="/delete">Delete Artifact</a>
+                                    <a class="btn btn-primary mt-2 float-left" sec:authorize="hasRole('ROLE_ADMIN')" href="/browse">Reserve For User</a> 
+                                   
+
+                                   
+                            </div>                   
+                        </div>
+                </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    </body>
+</html>

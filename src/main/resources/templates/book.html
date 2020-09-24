@@ -1,0 +1,117 @@
+<html>
+
+<head>
+    <title th:text="${Artifact.name}">Artifact page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/common.css">
+</head>
+
+<body>
+    <div th:replace="fragments/header :: header"></div>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-lg">
+                <h2 class="mb-4" th:text="${Artifact.name}">Artifact name</h2>
+                <label for="author"><b>Author:</b></label>
+                    <p class="body-para" th:text="${Artifact.author}"></p>
+                    <label for="description"><b>Description:</b></label>
+                    <p class="body-para" th:text="${Artifact.description}"></p>
+                    <label for="type"><b>Type:</b></label>
+                    <p class="body-para" th:text="${Artifact.type}"></p>
+                    <label for="onLoan"><b>Availability:</b></label>
+                    <span th:if="${Artifact.onLoan}"><p class="body-para">Reserved</p></span>
+                    <span th:if="${!Artifact.onLoan}"><p class="body-para">Available</p></span>
+                    <form th:action="@{/book(id=${Artifact.id})}" th:object="${Artifact}" method="post">
+                        <input type="hidden" th:name="id" th:value="${Artifact.id}" />
+                        <input class="btn btn-primary" type="submit" value="Reserve for me" />
+                    </form>
+                    <form th:action="@{/setBookAvailability(id=${Artifact.id})}" th:object="${Artifact}"  sec:authorize="hasRole('ROLE_ADMIN')" method="post">
+                        <input type="hidden" th:name="id" th:value="${Artifact.id}" />
+                        <input class="btn btn-primary" type="submit" value="Change Availability" />
+                    </form>
+
+            </div>
+            <div class="col-lg">
+                <div class="row">
+                    <div class="col-lg">
+                        <h2>Loan History</h2>
+                    </div>
+                    <div class="col-lg">
+                        <a class="btn btn-primary float-right mb-4" href="/browse">Back</a>
+                    </div>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Reserved For:</th>
+                            <th>Start Date:</th>
+                            <th>End Date:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="Loan, iterator : ${Loans}">
+                            <td th:text="${Users[iterator.index].name}"></td>
+                            <td th:text="${Loan.loanStartDate}"></td>
+                            <td th:text="${Loan.loanEndDate}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+        <div class="container-fluid admin-section mt-4" sec:authorize="hasRole('ROLE_ADMIN')">
+            <div class="row h-40">             
+                <div class="col-lg-4 my-auto admin-block">
+                    <h3 class="body-header">Admin Area</h3>
+                    <p class="body-para">In this section you can perform various admin tasks.</p>
+                    <p class="body-para">You can delete this artfiact or reserve it on behalf of other users.</p>
+                </div>
+                <div class="col-lg-4 my-auto admin-block text-center">
+                    <h3>Delete this artifact entirely</h3>
+                    <form th:action="@{/deleteartifact(id=${Artifact.id})}" th:object="${Artifact}" method="post">
+                        <input type="hidden" th:name="id" th:value="${Artifact.id}" />
+                        <input  sec:authorize="hasRole('ROLE_ADMIN')"class="btn btn-primary" type="submit" value="Delete"/>
+                    </form>
+                </div>  
+                <div class="col-lg-4 my-auto admin-block">
+                    <div class="table-responsive">
+                        <table class="user-table">
+                            <thead>
+                                <tr>
+                                    <th><h3 class="body-header">Reserve for User:</h3></th>
+                                </tr>
+                            </thead>
+                            <tbody class="reserve-for-user">
+                                <tr th:each="user : ${User}">
+                                    <td th:text="${user.name}"></td>
+                                    <td>
+                                        <form th:action="@{/bookforuser(id=${Artifact.id},userid=${user.id})}" th:object="${Artifact}" method="post">
+                                            <div class="row"><input type="hidden" th:name="id" th:value="${Artifact.id}" /></div>
+                                            <div class="row"><input type="hidden" th:name="userid" th:value="${user.id}" /></div>
+                                            <div class="row"><input class="btn btn-primary" type="submit" value="Reserve" /></div>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>         
+            </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

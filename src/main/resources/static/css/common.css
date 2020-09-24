@@ -1,0 +1,169 @@
+#logo {
+    height:80px;
+}
+
+.body-header {
+    font-size: 1.2em;
+    font-weight: 500;
+}
+
+.body-para {
+    font-size: 1em;
+    font-weight: 300;
+}
+
+.btn {
+    background-color: #363636;
+    transition: all 0.2s ease-in-out;
+    border-color: grey;
+}
+
+.btn:hover {
+    transform: scale(1.03);
+    background-color: #595959;
+    border-color: black;
+}
+
+.no-padding {
+    padding: none;
+}
+.no-margin {
+    margin: none;
+}
+
+.max-height {
+    min-height: 100%;
+}
+
+logout-button {
+    padding: none;
+    margin: none;
+}
+
+.logout input[type=submit] {
+    padding: none;
+    margin: none;
+    background-color: #363636;
+    border: none;
+    color: white;
+}
+
+.logout input[type=submit]:hover {
+    background-color: #595959;
+}
+
+.user-image {
+    border-radius: 50%;
+}
+
+.user-info-col {
+    padding: 20px 40px;
+    background-color: #dddddd;
+}
+
+.user-past-loans {
+    padding: 20px 40px;
+}
+
+.user-heading {
+    font-size: 18px;
+}
+
+.panel {
+    box-shadow: none;
+    background-color: white;
+    padding: 40px 80px;
+    border-radius: 15px;
+  }
+
+.edit-button {
+    text-align: center;
+}
+  .panel-heading {
+    border-bottom: 0;
+  }
+  .panel-title {
+    font-size: 17px;
+  }
+  .panel-title > small {
+    font-size: .75em;
+    color: #999999;
+  }
+  .panel-body *:first-child {
+    margin-top: 0;
+  }
+  .panel-footer {
+    border-top: 0;
+  }
+
+.loan-table {
+    width: 100%;
+}
+
+.loan-table  table {
+    border-collapse: collapse;
+    width: 100%;
+    border: solid 1px black;
+    border-spacing: 5px;
+}
+
+.loan-table  th, td {
+    height: 50px;
+    padding: 0.5rem;
+}
+
+.user-table {
+    width: 100%;
+}
+
+.user-table th, td {
+    height: 50px;
+    padding: 0.5rem;
+}
+
+.user-table table {
+    border-collapse: collapse;
+    width: 100%;
+    border: solid 1px black;
+    border-spacing: 5px;
+}
+
+.admin-section {
+    background-color: #fafafa;
+    padding-left: 5%;
+    padding-right: 5%;
+    border-top: solid 1px black;
+    border-bottom: solid 1px black;
+}
+
+.admin-block {
+    padding: 30px 40px 30px 40px;
+}
+
+.introduction {
+    padding: 30px 40px 30px 40px;
+}
+
+.reserve-for-user {
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.table-responsive {
+    height: 200px;
+}
+
+.book-modal {
+    background-color: white;
+    border: solid 1px black;
+    border-radius: 5px;
+}
+
+.author-name {  
+    font-weight: 350;
+}
+
+.book-description {
+    color: #888898;
+    font-style: italic;
+}

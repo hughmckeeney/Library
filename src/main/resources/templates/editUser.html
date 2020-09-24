@@ -1,0 +1,126 @@
+<html>
+    <head>
+        <title th:text="${user.name}">User</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}"/>
+        <link rel="stylesheet" type="text/css" href="../static/css/common.css"/>
+        
+    </head>
+    <body>
+        <div th:replace="fragments/header :: header"></div>
+
+        <div class="container-fluid">
+            <div class="row max-height align-self-center">
+
+                <div class="col-lg-5 no-margin no-padding user-info-col">
+                    <div class="all-panels">            
+                        <div class="panel text-center">
+                            <img class="user-image" height="100px" width="100px" src="https://www.ixrfsystems.com/wp-content/uploads/2019/08/default-user-image.png">
+                            <h4 class="mt-2"><span th:text="${user.name}">User Name</span></h4>
+                        </div>
+                        <div class="panel mt-4">
+                            <div class="panel-body">
+                                <form action="/user/edit" method="post">
+                                    <div class="panel-item">
+                                        <div class="col-lg-2 align-self-center user-heading">
+                                            <label for="bio">Bio:</label>
+                                        </div>
+                                        <div class="col-lg-10">
+                                            <input type="textarea" placeholder="Tell us some more about you.." name="bio" class="form-control" th:value="${user.bio}">
+                                        </div>
+                                    </div>
+                                    <div class="panel-item">
+                                            <div class="col-lg-2 align-self-center user-heading">
+                                                <label for="email">Email:</label>
+                                            </div>
+                                            <div class="col-lg-10">
+                                                <input type="text" name="email" class="form-control" th:value="${user.email}">
+                                            </div>
+                                    </div>
+                                    <div class="panel-item">
+                                        <div class="col-lg-2 align-self-center user-heading">
+                                            <label for="bio">Location:</label>
+                                        </div>
+                                        <div class="col-lg-10">
+                                            <input type="text" placeholder="Where are you based?" name="location" class="form-control" th:value="${user.location}">
+                                        </div>
+                                    </div>                          
+                                </div>
+                                <div class="edit-button mt-4">
+                                    <button type="submit" class="btn btn-primary">Submit Changes</button>
+                                </div>
+                            </form>
+                            </div>
+                        </div>  
+                    </div>                                   
+                
+
+
+                    <div class="col-lg-7 user-past-loans">
+                        <div class="row text-center justify-content-center mx-auto">
+                            <div class="col-lg-6">
+                                <a th:href="@{~/}"><button type="button" class="btn btn-primary">Home</button></a>
+                            </div>
+                            <div class="col-lg-6">
+                                <a th:href="@{~/browse}"><button type="button" class="btn btn-primary">Browse Library</button></a>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <h4>Your Current Loans</h2>
+                        </div>
+                        <div class="row mx-auto">
+                            <div class="loan-table">        
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Item ID</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>View Artifact</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="loan : ${currentLoans}">
+                                            <td th:text="${loan.artifactId}">25/01/2019</td>
+                                            <td th:text="${loan.loanStartDate}">26/01/2019</td>
+                                            <td th:text="${loan.loanEndDate}">Test Note 1</td>
+                                            <td><a th:href="@{/book(id=${loan.artifactId})}"><button type="button" class="btn btn-dark">View</button></a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <h4>Your Loan History</h2>
+                        </div>
+                        <div class="row mx-auto">
+                            <div class="loan-table">        
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Item ID</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>View Artifact</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="loan : ${loans}">
+                                            <td th:text="${loan.artifactId}">25/01/2019</td>
+                                            <td th:text="${loan.loanStartDate}">26/01/2019</td>
+                                            <td th:text="${loan.loanEndDate}">Test Note 1</td>
+                                            <td><a th:href="@{/book(id=${loan.artifactId})}"><button type="button" class="btn btn-dark">View</button></a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    </body>
+</html>
